@@ -1,0 +1,15 @@
+<app-header-menu/>
+
+<div class="page-container">
+
+
+
+<p class="page-title">Medicamentos</p>
+
+
+  <app-seach-bar-component [(seachBar)]="seachBar"/>
+
+  <app-medicamento-card-list [medicamentoLista]="listaFiltrada()" (adicionarValidade)="novaValidade($event)"/>
+
+
+</div>

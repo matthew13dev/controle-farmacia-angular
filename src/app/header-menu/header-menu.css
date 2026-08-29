@@ -1,0 +1,41 @@
+.routerLinkActive{
+  border-bottom: 10px solid var(--primary-color);
+}
+
+a{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 10px;
+  border-bottom: 10px solid transparent;
+  height: 100%;
+}
+
+a:hover{
+ border-bottom: 10px solid var(--primary-color);
+}
+nav{
+  padding:0 2rem;
+  margin: auto;
+  width: 100%;
+  height: 80px;
+  background:white;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--primary-color);
+
+  display: flex;
+
+  position: fixed;
+  top: 0;
+}
+
+.box{
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  height: 100%;
+  width: 100%;
+
+}

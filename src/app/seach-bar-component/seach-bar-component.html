@@ -1,0 +1,5 @@
+<form (ngSubmit)="limparSeachBar()" ngForm>
+  <input [ngModel]="seachBar" (ngModelChange)="enviarSeachBar($event)" name="seachBar" type="text" placeholder="Pesquisar..."/>
+  <button type="submit">Limpar</button>
+
+</form>

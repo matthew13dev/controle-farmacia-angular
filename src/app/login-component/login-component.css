@@ -1,0 +1,38 @@
+form{
+  display: flex;
+  padding: 50px;
+  gap: 0;
+}
+
+.page-title{
+  margin-bottom: 20px ;
+}
+button{
+  margin-top: 20px;
+}
+
+input{
+  width: 100%;
+}
+
+
+
+.page-container{
+  background-color: transparent;
+}
+
+
+footer{
+  width: 100%;
+  height: 100px;
+  background-color: rgb(41 40 40 / 0.27);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+footer a{
+  color: white;
+}

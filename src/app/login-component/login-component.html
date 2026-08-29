@@ -1,0 +1,15 @@
+<div class="page-container">
+
+  <form (ngSubmit)="login()" ngForm>
+
+    <p class="page-title">Login</p>
+
+    Usuário:<input [(ngModel)]="user" name="user" type=text>
+    Senha: <input [(ngModel)]="password"  name="password" type="password">
+
+    <button type="submit">Entrar</button>
+  </form>
+
+</div>
+
+<footer>Desenvolvido por <br> <a routerLink="https://github.com/matthew13dev">Matheus Henrique da Silva Mendes</a></footer>

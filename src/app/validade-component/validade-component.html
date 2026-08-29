@@ -1,0 +1,16 @@
+<app-header-menu/>
+
+<div class="page-container">
+
+  <p class="page-title">Validade</p>
+
+  <app-seach-bar-component [(seachBar)]="seachBar" />
+
+
+  @if(validadeLista.length == 0){
+    <p>Sem registros</p>
+  } @else {
+    <app-validade-card-list [listaValidade]="validadeLista"/>
+  }
+
+</div>

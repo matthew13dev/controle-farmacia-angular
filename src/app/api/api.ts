@@ -2,8 +2,8 @@
 import { HttpHeaders } from '@angular/common/http';
 
 
-export const API_URL_MEDICAMENTOS = 'http://localhost:8081/medicamentos';
-export const API_URL_VALIDADE = 'http://localhost:8081/validade';
+export const API_URL_MEDICAMENTOS = 'http://controle-medicamento-production.up.railway.app/medicamentos';
+export const API_URL_VALIDADE = 'http://controle-medicamento-production.up.railway.app/validade';
 
 export const CREDENTIALS: string = btoa('admin:adminpass');
 

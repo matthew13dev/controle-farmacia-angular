@@ -1,12 +1,37 @@
-<form ngForm (ngSubmit)="salvar()">
-  <p class="card-title">Novo Medicamento</p>
 
-  <input placeholder="ean"/>
-  <input placeholder="fabricante"/>
-  <input placeholder="tipo"/>
-  <input placeholder="classificacao"/>
-  <input placeholder="principio ativo"/>
-  <input placeholder="registro anvisa"/>
+<app-header-menu [esconderLink]="true"/>
 
-  <button type="submit">salvar</button>
-</form>
+<div class="page-container">
+
+  <p class="page-title">Novo Medicamento</p>
+
+  <form ngForm (ngSubmit)="salvar()">
+    <p class="card-title">Novo Medicamento</p>
+
+    <input [(ngModel)]="ean" name="ean" placeholder="ean"/>
+    <input [(ngModel)]="descricao" name="descricao" placeholder="descricação"/>
+    <input [(ngModel)]="fabricante" name="fabricante" placeholder="fabricate"/>
+    <input [(ngModel)]="principio_ativo" name="principio_ativo" placeholder="principio ativo"/>
+    <input [(ngModel)]="registro_anvisa" name="registro_anvisa" placeholder="registro anvisa"/>
+
+
+    <select [(ngModel)]="tipo" name="tipo">
+      <option value="TIPO">Tipo</option>
+      <option >{{TIPO_MEDICAMENTO.GENERICO}}</option>
+      <option>{{TIPO_MEDICAMENTO.REFERENCIA}}</option>
+      <option>{{TIPO_MEDICAMENTO.SIMILAR}}</option>
+    </select>
+
+    <select [(ngModel)]="classificacao" name="classificacao">
+      <option value="CLASSIFICACAO">Classificação</option>
+      <option >{{CLASSIFICAO_MEDICAMENTO.TARJA_VERMELHA}}</option>
+      <option >{{CLASSIFICAO_MEDICAMENTO.TARJA_PRETA}}</option>
+      <option >{{CLASSIFICAO_MEDICAMENTO.MIP}}</option>
+    </select>
+
+
+    <button type="submit">salvar</button>
+  </form>
+</div>
+
+<app-footer-component/>

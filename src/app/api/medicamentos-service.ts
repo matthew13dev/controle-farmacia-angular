@@ -2,9 +2,10 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {
   API_URL_MEDICAMENTOS,
-  HEADERS,
+  HEADERS, MedicamentoCreateDTO,
   MedicamentoViewDTO,
   ValidadeMedicamentoCreateDTO,
+  ValidadeMedicamentoViewDTO
 } from './api';
 import { Observable } from 'rxjs';
 import { ValidadeService } from './validade-service';
@@ -15,7 +16,6 @@ import { ValidadeService } from './validade-service';
 export class MedicamentosService {
   private http: HttpClient = inject(HttpClient);
 
-  private _validadeService = inject(ValidadeService)
 
   buscarPorNome(descricao: string): Observable<MedicamentoViewDTO[]> {
     const params = new HttpParams().set('descricao', descricao);
@@ -48,7 +48,10 @@ export class MedicamentosService {
     return this.http.get<MedicamentoViewDTO[]>(API_URL_MEDICAMENTOS, { withCredentials: true });
   }
 
-  novaValidade($event: ValidadeMedicamentoCreateDTO) {
-    this._validadeService.criarValidade($event);
+  novoMedicamento(medicamento: MedicamentoCreateDTO):Observable<MedicamentoViewDTO> {
+    return this.http.post<MedicamentoViewDTO>(API_URL_MEDICAMENTOS, medicamento,{
+      headers: HEADERS,
+      withCredentials:true
+    });
   }
 }

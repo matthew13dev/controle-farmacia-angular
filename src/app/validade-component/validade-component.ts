@@ -4,9 +4,11 @@ import { SeachBarComponent } from '../seach-bar-component/seach-bar-component';
 import { ValidadeService } from '../api/validade-service';
 import { ValidadeCardList } from '../validade-card-list/validade-card-list';
 import { ValidadeMedicamentoViewDTO } from '../api/api';
+import { FooterComponent } from '../footer-component/footer-component';
+import { filter } from 'rxjs';
 
 @Component({
-  imports: [HeaderMenu, SeachBarComponent, ValidadeCardList],
+  imports: [HeaderMenu, SeachBarComponent, ValidadeCardList, FooterComponent],
   selector: 'app-validade-component',
   styleUrl: './validade-component.css',
   templateUrl: './validade-component.html',
@@ -23,8 +25,22 @@ export class ValidadeComponent {
       next: (data: any) => {
         this.validadeLista = data;
         this.crf.detectChanges();
-        console.log('validade', this.validadeLista);
       },
     });
+  }
+
+
+  listaFiltrada(): ValidadeMedicamentoViewDTO[] {
+    const listaFiltrada = this.validadeLista;
+    const termo = this.seachBar.toLowerCase();
+
+    if (this.seachBar === '') {
+      return listaFiltrada;
+    }
+
+    return listaFiltrada.filter(validade=>{
+      return validade.medicamento.descricao?.toLocaleLowerCase().includes(termo)
+      || validade.medicamento.ean?.toLocaleLowerCase().includes(termo)
+      })
   }
 }

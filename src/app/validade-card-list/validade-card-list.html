@@ -9,16 +9,19 @@
 
 
       <div class="card-item">
-        <p class="card-title">{{formatarTexto(validade.medicamento.descricao)}}</p>
-        <p>data: {{validade.data_vencimento}}<
-        <p>lote: {{validade.lote}}</p>
+        <p class="card-title">{{formatarTexto(validade.medicamento?.descricao)}}</p>
+        <p>vencimento: {{validade.data_vencimento}}</p>
+
+        @if(validade.lote){
+          <p>lote: {{validade.lote}}</p>
+        }
+
         <p [class.dias10]="validade.dias_restantes <= 10">dias restantes: {{validade.dias_restantes}}</p>
         <p>ean:{{validade.medicamento.ean}}</p>
-        <p>fabricante: {{formatarTexto(validade.medicamento.fabricante)}}</p>
-        <p [class.controlado]="validade.medicamento.classificacao == CLASSIFICAO_MEDICAMENTO.CONTROLADO">{{formatarTexto(validade.medicamento.classificacao)}}</p>
+        <p [class.controlado]="validade.medicamento.classificacao != CLASSIFICAO_MEDICAMENTO.MIP">{{formatarTexto(validade.medicamento?.classificacao)}}</p>
 
 
-        <button (click)="remover()">Remover</button>
+        <button (click)="remover(validade.id)">Remover</button>
       </div>
     }
   </div>

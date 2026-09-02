@@ -1,8 +1,16 @@
-<form>
-  <p class="card-title">Nova Validade</p>
+@if (medicamento) {
 
-  <input placeholder="ean"/>
-  <input placeholder="vencimento"/>
-  <input placeholder="lote"/>
-  <button type="submit">salvar</button>
-</form>
+  <form class="form-nova-validade" ngForm (ngSubmit)="criarValidade()">
+
+    <p class="card-title">Nova Validade</p>
+
+    @if (medicamento.classificacao != CLASSIFICAO_MEDICAMENTO.MIP){
+      lote:<input [(ngModel)]="loteValidade" name="loteValidade" type="text" required/>
+    }
+
+    data:<input [(ngModel)]="dataValidade" name="dataValidade" type="date" required/>
+
+    <button type="submit">salvar</button>
+  </form>
+
+}

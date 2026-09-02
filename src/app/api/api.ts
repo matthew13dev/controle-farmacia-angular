@@ -13,24 +13,25 @@ export const HEADERS = new HttpHeaders({
 
 
 export enum CLASSIFICAO_MEDICAMENTO {
-  CONTROLADO = 'CONTROLADO',
+  TARJA_PRETA = 'TARJA_PRETA',
+  TARJA_VERMELHA = 'TARJA_VERMELHA',
   MIP = 'MIP',
 }
 
 export enum TIPO_MEDICAMENTO {
-  ETICO='ETICO',
+  REFERENCIA = 'REFERENCIA',
   GENERICO = 'GENERICO',
   SIMILAR = 'SIMILAR',
 }
 
 export interface MedicamentoCreateDTO {
-  ean: string;
-  descricao: string;
-  fabricante: string;
-  tipo: string;
-  classificacao: string;
-  principio_ativo: string;
-  registro_anvisa: string;
+  ean: string | null;
+  descricao: string | null;
+  fabricante: string | null;
+  tipo: string | null;
+  classificacao: string | null;
+  principio_ativo: string | null;
+  registro_anvisa: string | null;
 }
 
 export interface MedicamentoViewDTO extends MedicamentoCreateDTO {
@@ -38,13 +39,16 @@ export interface MedicamentoViewDTO extends MedicamentoCreateDTO {
 }
 
 export interface ValidadeMedicamentoCreateDTO {
-  lote: string;
-  data_vencimento: string;
-  medicamento: MedicamentoViewDTO;
+  lote: string|null;
+  data_vencimento: string | null;
+  medicamentoId: number | undefined;
 }
 
-export interface ValidadeMedicamentoViewDTO extends ValidadeMedicamentoCreateDTO {
+export interface ValidadeMedicamentoViewDTO {
   id: number;
+  lote: string;
+  data_vencimento: string;
   dias_restantes: number;
+  medicamento:MedicamentoViewDTO
 }
 

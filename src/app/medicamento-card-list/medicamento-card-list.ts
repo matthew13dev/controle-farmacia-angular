@@ -5,57 +5,42 @@ import {
   ValidadeMedicamentoCreateDTO,
 } from '../api/api';
 import { FormGroup, FormsModule } from '@angular/forms';
+import { NovaValidadeComponent } from '../nova-validade-component/nova-validade-component';
 
 @Component({
-  imports: [FormsModule],
+  imports: [FormsModule, NovaValidadeComponent],
   selector: 'app-medicamento-card-list',
   styleUrl: './medicamento-card-list.css',
   templateUrl: './medicamento-card-list.html',
 })
 export class MedicamentoCardList {
   @Input() medicamentoLista?: MedicamentoViewDTO[] | void;
-  @Output() adicionarValidade = new EventEmitter<ValidadeMedicamentoCreateDTO>();
 
-  formatarTexto(texto: string): string {
-    if (!texto) return '';
+
+  formatarTexto(texto: string|null|undefined): string {
+    if (texto == null) {
+      return '';
+    }
+
+    if(texto == undefined){
+      return '';
+    }
+
+
     return texto.toLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, (letra) => letra.toUpperCase());
   }
 
-  protected readonly CLASSIFICAO_MEDICAMENTO = CLASSIFICAO_MEDICAMENTO;
-
-  protected loteValidade: string = '';
-  protected dataValidade:string = '';
-
-  protected criarValidade(medicamento: MedicamentoViewDTO) {
-
-    if(this.loteValidade == '' || this.dataValidade == ''){
-      alert("dados incompletos");
-    }
-    const novaValidade: ValidadeMedicamentoCreateDTO = {
-      lote: this.loteValidade,
-      data_vencimento: this.dataValidade,
-      medicamento: medicamento,
-    };
-
-        this.adicionarValidade.emit(novaValidade);
-        this.idAtivo = null;
-        this.loteValidade = '';
-        this.dataValidade = '';
-
-  }
 
 
-  idAtivo:number|null = null;
+  idAtivo: number | null = null;
 
   protected toggleForm(id: number) {
-
-    if(this.idAtivo == id){
+    if (this.idAtivo == id) {
       this.idAtivo = null;
-    }
-    else {
+    } else {
       this.idAtivo = id;
     }
-
-
   }
+
+  protected readonly CLASSIFICAO_MEDICAMENTO = CLASSIFICAO_MEDICAMENTO;
 }

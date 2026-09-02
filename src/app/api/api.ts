@@ -5,12 +5,17 @@ import { environment } from '../../environments/environment';
 
 export const API_URL_MEDICAMENTOS = `${environment.apiUrl}/medicamentos`;
 export const API_URL_VALIDADE = `${environment.apiUrl}/validade`;
+export const API_URL_AUTHE = `${environment.apiUrl}/auth`;
 
-export const CREDENTIALS: string = btoa('admin:adminpass');
+export function getAuthHeaders(): HttpHeaders {
+  const username = localStorage.getItem('username') || '';
+  const password = localStorage.getItem('password') || '';
+  const credentials = btoa(`${username}:${password}`);
 
-export const HEADERS = new HttpHeaders({
-  Authorization: `Basic ${CREDENTIALS}`,
-});
+  return new HttpHeaders({
+    Authorization: `Basic ${credentials}`,
+  });
+}
 
 
 export enum CLASSIFICAO_MEDICAMENTO {

@@ -4,6 +4,15 @@
 
   <p class="page-title">Vencendo em 10 dias</p>
 
+
+  <app-seach-bar-component [(seachBar)]="seachBar"/>
+
+  @if (listaValidade10dias.length == 0){
+    <p>Sem registros</p>
+  }
   <app-validade-card-list [listaValidade]="listaValidade10dias"/>
 
 </div>
+
+
+<app-footer-component/>

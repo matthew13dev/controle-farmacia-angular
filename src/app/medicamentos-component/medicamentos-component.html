@@ -8,8 +8,23 @@
 
 
   <app-seach-bar-component [(seachBar)]="seachBar"/>
+  <p>registros:{{listaFiltrada()?.length}}</p>
 
-  <app-medicamento-card-list [medicamentoLista]="listaFiltrada()" (adicionarValidade)="novaValidade($event)"/>
 
+  @if (listaFiltrada()?.length == 0){
+    <p>Sem registros</p>
+  }
+
+  <app-medicamento-card-list [medicamentoLista]="listaPaginada()"/>
+
+
+  <div class="paginacao-container">
+    <button (click)="paginaAnterior()" [disabled]="paginaAtual === 0">Anterior</button>
+    <p>Página {{ paginaAtual + 1 }} de {{ totalPaginas() }}</p>
+    <button (click)="proximaPagina()" [disabled]="(paginaAtual + 1) >= totalPaginas()">Próxima</button>
+  </div>
 
 </div>
+
+
+<app-footer-component/>

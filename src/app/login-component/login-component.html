@@ -1,8 +1,9 @@
 <div class="page-container">
 
+
   <form (ngSubmit)="login()" ngForm>
 
-    <p class="page-title">Login</p>
+    <p class="page-title">Controle de Medicações</p>
 
     Usuário:<input [(ngModel)]="user" name="user" type=text>
     Senha: <input [(ngModel)]="password"  name="password" type="password">
@@ -12,4 +13,4 @@
 
 </div>
 
-<footer>Desenvolvido por <br> <a routerLink="https://github.com/matthew13dev">Matheus Henrique da Silva Mendes</a></footer>
+<app-footer-component/>

@@ -21,11 +21,20 @@ export class ValidadeService {
     });
   }
 
-  criarValidade($event: ValidadeMedicamentoCreateDTO) {
+  criarValidade(novaValidade: ValidadeMedicamentoCreateDTO):Observable<ValidadeMedicamentoViewDTO> {
 
-    return this.httpClient.post(`${API_URL_VALIDADE}`, $event, {
+    return this.httpClient.post<ValidadeMedicamentoViewDTO>(`${API_URL_VALIDADE}`,
+      novaValidade, {
       headers: HEADERS,
       withCredentials: true,
-    })
+    });
+
+  }
+
+  deletar(id: number) {
+    return this.httpClient.delete(`${API_URL_VALIDADE}/${id}`,{
+      headers: HEADERS,
+      withCredentials: true,
+    });
   }
 }

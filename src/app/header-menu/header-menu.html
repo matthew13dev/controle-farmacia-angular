@@ -1,19 +1,20 @@
-<nav>
-  <a routerLink="/login" routerLinkActive="routerLinkActive">sair</a>
+<header>
+
+    <nav>
+
+      <a routerLink="/login" routerLinkActive="routerLinkActive">sair</a>
+      @if (!esconderLink) {
+        <div class="box">
+<!--          <a routerLink="/10dias" routerLinkActive="routerLinkActive">10 dias</a>-->
+          <a routerLink="/validade" routerLinkActive="routerLinkActive">Validade</a>
+          <a routerLink="/medicamentos" routerLinkActive="routerLinkActive">Medicamentos</a>
+        </div>
+      }
 
 
+      @if(esconderLink){
+        <a routerLink="/admin" routerLinkActive="routerLinkActive">Admin</a>
+      }
 
-  @if (!esconderLink) {
-    <div class="box">
-      <a routerLink="/10dias" routerLinkActive="routerLinkActive">10 dias</a>
-      <a routerLink="/validade" routerLinkActive="routerLinkActive">Validade</a>
-      <a routerLink="/medicamentos" routerLinkActive="routerLinkActive">Medicamentos</a>
-    </div>
-  }
-
-
-  @if(esconderLink){
-    <a routerLink="/admin" routerLinkActive="routerLinkActive">Admin</a>
-  }
-
-</nav>
+    </nav>
+</header>

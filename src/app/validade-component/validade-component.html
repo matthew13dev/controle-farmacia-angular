@@ -10,7 +10,9 @@
   @if(validadeLista.length == 0){
     <p>Sem registros</p>
   } @else {
-    <app-validade-card-list [listaValidade]="validadeLista"/>
+    <app-validade-card-list [listaValidade]="listaFiltrada()"/>
   }
 
 </div>
+
+<app-footer-component/>

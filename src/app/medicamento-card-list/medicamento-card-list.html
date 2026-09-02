@@ -4,21 +4,14 @@
     @for (medicamentoItem of medicamentoLista; track medicamentoItem){
 
       <div class="card-item">
-        <p class="card-title">{{formatarTexto(medicamentoItem.descricao)}}</p>
-        <p>{{formatarTexto(medicamentoItem.fabricante)}} - {{medicamentoItem.ean}}</p>
-        <p [class.controlado]="medicamentoItem.classificacao == CLASSIFICAO_MEDICAMENTO.CONTROLADO">{{formatarTexto(medicamentoItem.classificacao)}}</p>
+        <p class="card-title">{{formatarTexto(medicamentoItem?.descricao)}}</p>
+        <p>{{formatarTexto(medicamentoItem?.fabricante)}} - {{medicamentoItem.ean}}</p>
+        <p [class.controlado]="medicamentoItem.classificacao == CLASSIFICAO_MEDICAMENTO.TARJA_PRETA || CLASSIFICAO_MEDICAMENTO.TARJA_VERMELHA">{{formatarTexto(medicamentoItem?.classificacao)}}</p>
 
-        <button (click)="toggleForm(medicamentoItem.id)">{{ idAtivo ? "Fechar":"Nova Validade"}}</button>
+        <button (click)="toggleForm(medicamentoItem.id)">{{ idAtivo==medicamentoItem.id ? "Fechar":"Nova Validade"}}</button>
 
         @if (idAtivo === medicamentoItem.id) {
-
-          <form class="form-nova-validade" ngForm (ngSubmit)="criarValidade(medicamentoItem)">
-
-            lote:<input [(ngModel)]="loteValidade" name="loteValidade" type="text" required/>
-            data:<input [(ngModel)]="dataValidade" name="dataValidade" type="date" required/>
-
-            <button type="submit">salvar</button>
-          </form>
+          <app-nova-validade-component [medicamento]="medicamentoItem"/>
         }
 
       </div>

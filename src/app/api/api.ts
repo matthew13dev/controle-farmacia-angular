@@ -1,9 +1,10 @@
 
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 
-export const API_URL_MEDICAMENTOS = 'http://localhost:8081/medicamentos';
-export const API_URL_VALIDADE = 'http://localhost:8081/validade';
+export const API_URL_MEDICAMENTOS = `${environment.apiUrl}/medicamentos`;
+export const API_URL_VALIDADE = `${environment.apiUrl}/validade`;
 
 export const CREDENTIALS: string = btoa('admin:adminpass');
 

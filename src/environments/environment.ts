@@ -1,4 +1,4 @@
-// src/environments/environment.ts (ou environment.development.ts)
+// src/environments/environment.ts (ou environment.prod.ts)
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:8080', // URL da sua API rodando localmente

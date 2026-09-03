@@ -2,8 +2,9 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { FooterComponent } from '../footer-component/footer-component';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { API_URL_AUTH, getAuthHeaders } from '../api/api';
+import { HttpClient} from '@angular/common/http';
+import { API_URL_AUTH, API_URL_MEDICAMENTOS, UsuarioLoginDTO } from '../api/api';
+import { AuthService } from '../api/auth-service';
 
 @Component({
   imports: [FormsModule, FooterComponent],
@@ -12,41 +13,17 @@ import { API_URL_AUTH, getAuthHeaders } from '../api/api';
   templateUrl: './login-component.html',
 })
 export class LoginComponent {
-  private router = inject(Router);
-  private http: HttpClient = inject(HttpClient);
+  private _authService = inject(AuthService);
 
   protected user: string = '';
   protected password: string = '';
 
-  login(): void {
-    if (!this.user || !this.password) {
-      alert('Preencha o usuário e a senha!');
-      return;
-    }
+  login() {
+    const dadosLogin: UsuarioLoginDTO = {
+      username: this.user,
+      password: this.password,
+    };
 
-    // 1. Salva temporariamente no localStorage para a função getAuthHeaders() ler
-    localStorage.setItem('username', this.user);
-    localStorage.setItem('password', this.password);
-
-    // 2. Testa as credenciais batendo na rota de login protegida do Spring Boot
-    this.http
-      .get(`${API_URL_AUTH}/login`, {
-        headers: getAuthHeaders(),
-        responseType: 'text',
-      })
-      .subscribe({
-        next: (response) => {
-          console.log(response); // "Login bem-sucedido!"
-          // Se deu certo, redireciona para a página principal ou de validade
-          this.router.navigate(['/validade']);
-        },
-        error: (err: HttpErrorResponse) => {
-          console.error(err);
-          alert('Usuário ou senha inválidos!');
-          // Limpa se falhar
-          localStorage.removeItem('username');
-          localStorage.removeItem('password');
-        },
-      });
+    this._authService.login(dadosLogin);
   }
 }

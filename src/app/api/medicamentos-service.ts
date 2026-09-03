@@ -1,11 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {
-  API_URL_MEDICAMENTOS,
-  HEADERS, MedicamentoCreateDTO,
+  API_URL_MEDICAMENTOS, getAuthHeaders,
+  MedicamentoCreateDTO,
   MedicamentoViewDTO,
-  ValidadeMedicamentoCreateDTO,
-  ValidadeMedicamentoViewDTO
 } from './api';
 import { Observable } from 'rxjs';
 import { ValidadeService } from './validade-service';
@@ -20,7 +18,7 @@ export class MedicamentosService {
   buscarPorNome(descricao: string): Observable<MedicamentoViewDTO[]> {
     const params = new HttpParams().set('descricao', descricao);
     return this.http.get<MedicamentoViewDTO[]>(`${API_URL_MEDICAMENTOS}/descricao`, {
-      headers: HEADERS,
+      headers: getAuthHeaders(),
       params,
       withCredentials: true,
     });
@@ -29,7 +27,7 @@ export class MedicamentosService {
   buscarPorRegistro(registro: string): Observable<MedicamentoViewDTO[]> {
     const params = new HttpParams().set('registro', registro);
     return this.http.get<MedicamentoViewDTO[]>(`${API_URL_MEDICAMENTOS}/registro/${registro}`, {
-      headers: HEADERS,
+      headers: getAuthHeaders(),
       params,
       withCredentials: true,
     });
@@ -38,7 +36,7 @@ export class MedicamentosService {
   buscarPorEan(ean: string): Observable<MedicamentoViewDTO[]> {
     const params = new HttpParams().set('ean', ean);
     return this.http.get<MedicamentoViewDTO[]>(`${API_URL_MEDICAMENTOS}/ean}`, {
-      headers: HEADERS,
+      headers: getAuthHeaders(),
       params,
       withCredentials: true,
     });
@@ -50,7 +48,7 @@ export class MedicamentosService {
 
   novoMedicamento(medicamento: MedicamentoCreateDTO):Observable<MedicamentoViewDTO> {
     return this.http.post<MedicamentoViewDTO>(API_URL_MEDICAMENTOS, medicamento,{
-      headers: HEADERS,
+      headers: getAuthHeaders(),
       withCredentials:true
     });
   }

@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { FooterComponent } from '../footer-component/footer-component';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { API_URL_AUTHE, getAuthHeaders } from '../api/api';
+import { API_URL_AUTH, getAuthHeaders } from '../api/api';
 
 @Component({
   imports: [FormsModule, FooterComponent],
@@ -30,7 +30,7 @@ export class LoginComponent {
 
     // 2. Testa as credenciais batendo na rota de login protegida do Spring Boot
     this.http
-      .get(`${API_URL_AUTHE}/login`, {
+      .get(`${API_URL_AUTH}/login`, {
         headers: getAuthHeaders(),
         responseType: 'text',
       })

@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 
 export const API_URL_MEDICAMENTOS = `${environment.apiUrl}/medicamentos`;
 export const API_URL_VALIDADE = `${environment.apiUrl}/validade`;
-export const API_URL_AUTHE = `${environment.apiUrl}/auth`;
+export const API_URL_AUTH = `${environment.apiUrl}/auth`;
 
 export function getAuthHeaders(): HttpHeaders {
   const username = localStorage.getItem('username') || '';

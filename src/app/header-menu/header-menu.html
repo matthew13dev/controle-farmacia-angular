@@ -5,7 +5,6 @@
       <a routerLink="/login" routerLinkActive="routerLinkActive">sair</a>
       @if (!esconderLink) {
         <div class="box">
-<!--          <a routerLink="/10dias" routerLinkActive="routerLinkActive">10 dias</a>-->
           <a routerLink="/validade" routerLinkActive="routerLinkActive">Validade</a>
           <a routerLink="/medicamentos" routerLinkActive="routerLinkActive">Medicamentos</a>
         </div>
@@ -13,7 +12,9 @@
 
 
       @if(esconderLink){
-        <a routerLink="/admin" routerLinkActive="routerLinkActive">Admin</a>
+        <a routerLink="/admin/usuarios" routerLinkActive="routerLinkActive">Usuários</a>
+        <a routerLink="/admin/novo-medicamento" routerLinkActive="routerLinkActive">Novo Medicamento</a>
+
       }
 
     </nav>

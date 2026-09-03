@@ -1,0 +1,60 @@
+<app-header-menu [esconderLink]="true"/>
+
+
+<div class="page-container">
+
+
+  <div class="header-page">
+    <p class="page-title">Usuários</p>
+
+    @if (!adicionarToggle){
+      <button  class="abrir-form" (click)="adicionarToggle = !adicionarToggle">Adicionar</button>
+    }
+  </div>
+
+
+
+  @if (adicionarToggle){
+
+    <form ngForm (ngSubmit)="adicionarUsuario()">
+
+
+      <div class="card-header">
+        <p class="card-title">Adicionar Usuário</p>
+        <button class="fechar" (click)="adicionarToggle = !adicionarToggle">fechar</button>
+      </div>
+
+      <div class="card-content">
+        <input [(ngModel)]="username" type="text" placeholder="nome de usuário" name="username"/>
+        <input [(ngModel)]="password" type="text" placeholder="senha" name="password"/>
+
+        <select [(ngModel)]="role"]>
+          <option disabled selected>Role</option>
+          <option value="USER">user</option>
+          <option VALUE="ADMIN">admin</option>
+        </select>
+        <button type="submit">salvar</button>
+      </div>
+    </form>
+  }
+
+
+      <div class="card-list">
+      @for(usuario of listaUsuarios;track usuario){
+        <div class="card-item">
+          <p>{{usuario.username}}</p>
+          <p>{{usuario.role}}</p>
+          <div class="box-btn">
+            <button class="btn-delete" (click)="deletar(usuario?.id)">deletar</button>
+          </div>
+        </div>
+      }
+    </div>
+
+
+</div>
+
+
+<app-footer-component/>
+
+

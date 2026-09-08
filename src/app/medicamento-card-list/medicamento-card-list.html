@@ -8,11 +8,20 @@
         <p>{{formatarTexto(medicamentoItem?.fabricante)}} - {{medicamentoItem.ean}}</p>
         <p [class.controlado]="medicamentoItem.classificacao == CLASSIFICAO_MEDICAMENTO.TARJA_PRETA || CLASSIFICAO_MEDICAMENTO.TARJA_VERMELHA">{{formatarTexto(medicamentoItem?.classificacao)}}</p>
 
-        <button (click)="toggleForm(medicamentoItem.id)">{{ idAtivo==medicamentoItem.id ? "Fechar":"Nova Validade"}}</button>
 
-        @if (idAtivo === medicamentoItem.id) {
-          <app-nova-validade-component [medicamento]="medicamentoItem"/>
+        @if (!isAdmin){
+          <button (click)="toggleForm(medicamentoItem.id)">{{ idAtivo==medicamentoItem.id ? "Fechar":"Nova Validade"}}</button>
+
+          @if (idAtivo === medicamentoItem.id) {
+            <app-nova-validade-component [medicamento]="medicamentoItem"/>
+          }
+
+        } @else {
+          <button (click)="deleteMedicamentoEvent(medicamentoItem.id)">Deletar</button>
         }
+
+
+
 
       </div>
     }

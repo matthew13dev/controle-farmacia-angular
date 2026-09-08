@@ -1,0 +1,39 @@
+<app-header-menu [esconderLink]="true"/>
+
+<div class="page-container">
+
+  <p class="page-title">Medicamentos</p>
+
+
+  <button (click)="toggleFormEvent()">Novo medicamento</button>
+  @if (formToggle){
+    <app-novo-medicamento-component />
+  }
+
+
+  <app-seach-bar-component [(seachBar)]="seachBar"/>
+  <p>registros:{{listaFiltrada()?.length}}</p>
+
+
+  @if (listaFiltrada()?.length == 0){
+    <p>Sem registros</p>
+  }
+
+
+
+  <app-medicamento-card-list [medicamentoLista]="listaPaginada()" [isAdmin]="true" (deletarMedicamento)="deletarMedicamento($event)"/>
+
+
+  <div class="paginacao-container">
+    <button (click)="paginaAnterior()" [disabled]="paginaAtual === 0">Anterior</button>
+    <p>Página {{ paginaAtual + 1 }} de {{ totalPaginas() }}</p>
+    <button (click)="proximaPagina()" [disabled]="(paginaAtual + 1) >= totalPaginas()">Próxima</button>
+  </div>
+
+
+
+</div>
+
+
+
+<app-footer-component/>

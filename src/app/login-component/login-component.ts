@@ -1,9 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
 import { FooterComponent } from '../footer-component/footer-component';
-import { HttpClient} from '@angular/common/http';
-import { API_URL_AUTH, API_URL_MEDICAMENTOS, UsuarioLoginDTO } from '../api/api';
+import { UsuarioLoginDTO } from '../api/api';
 import { AuthService } from '../api/auth-service';
 
 @Component({
@@ -24,6 +22,8 @@ export class LoginComponent {
       password: this.password,
     };
 
+
+    console.log("login:",dadosLogin)
     this._authService.login(dadosLogin);
   }
 }

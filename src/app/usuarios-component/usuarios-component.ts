@@ -13,7 +13,6 @@ import { AuthService } from '../api/auth-service';
   templateUrl: './usuarios-component.html',
 })
 export class UsuariosComponent {
-  private http: HttpClient = inject(HttpClient);
   private cdr = inject(ChangeDetectorRef);
 
   private _authService: AuthService = inject(AuthService);
@@ -21,6 +20,7 @@ export class UsuariosComponent {
   listaUsuarios?: UsuarioViewDTO[] = [];
 
   protected adicionarToggle: boolean = false;
+
   protected role: string = 'USER';
   protected username: string = '';
   protected password: string = '';
@@ -34,16 +34,30 @@ export class UsuariosComponent {
       });
   }
 
-  ngOnChanges(changes: SimpleChanges<UsuariosComponent>) {
-    if (changes.listaUsuarios) {
+  ngOnChanges() {
+    if (this.listaUsuarios) {
       this.cdr.detectChanges();
     }
   }
 
   protected deletar(id: number|null) {
 
-    if(id){
-      this._authService.deletarUsuario(id);
+    const isDeletared = confirm('Gostaria de deletar usuário?');
+    if(isDeletared && id){
+      this._authService.deletarUsuario(id).subscribe({
+        next: (data) => {
+          alert("deletado com sucesso:");
+         this.listaUsuarios = this.listaUsuarios?.filter((item) => item.id != id);
+          this.cdr.detectChanges();
+
+        },
+        error: (error) => {
+          console.log("backend_erro:",error.error.menssagem);
+          alert(error.error.menssagem);
+        }
+
+      });
+
     }
 
 
@@ -53,6 +67,7 @@ export class UsuariosComponent {
   }
 
   protected adicionarUsuario() {
+
 
     if(this.username === '' || this.password === '') {
       alert("dados incompletos");
@@ -65,14 +80,26 @@ export class UsuariosComponent {
       role: this.role
     }
 
-    this._authService.criarUsuario(novoUsuario)
 
-    this.listaUsuarios?.push({
-      id:null,
-      username:novoUsuario.username,
-      role:novoUsuario.role
+    this._authService.criarUsuario(novoUsuario).subscribe({
+      next: (data) => {
+        console.log("adicionado com sucesso:",data);
+
+
+        this.listaUsuarios?.push(data);
+        this.cdr.detectChanges();
+        alert('Adicionado com sucesso');
+
+        this.adicionarToggle = false;
+
+      },
+      error: (error) => {
+        console.log("backend_erro:",error.error.menssagem);
+        alert(error.error.menssagem);
+      }
     })
 
-    this.cdr.detectChanges();
+
+
   }
 }

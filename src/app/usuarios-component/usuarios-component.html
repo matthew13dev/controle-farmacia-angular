@@ -28,9 +28,8 @@
         <input [(ngModel)]="username" type="text" placeholder="nome de usuário" name="username"/>
         <input [(ngModel)]="password" type="text" placeholder="senha" name="password"/>
 
-        <select [(ngModel)]="role"]>
-          <option disabled selected>Role</option>
-          <option value="USER">user</option>
+        <select [(ngModel)]="role" name="role">
+          <option value="USER" selected>user</option>
           <option VALUE="ADMIN">admin</option>
         </select>
         <button type="submit">salvar</button>

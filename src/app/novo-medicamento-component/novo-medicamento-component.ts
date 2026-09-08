@@ -1,15 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { HeaderMenu } from '../header-menu/header-menu';
-import { FormGroup, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CLASSIFICAO_MEDICAMENTO, MedicamentoCreateDTO, TIPO_MEDICAMENTO } from '../api/api';
-import { FooterComponent } from '../footer-component/footer-component';
 import { MedicamentosService } from '../api/medicamentos-service';
 
 @Component({
   selector: 'app-novo-medicamento-component',
   styleUrl: './novo-medicamento-component.css',
   templateUrl: './novo-medicamento-component.html',
-  imports: [FormsModule, HeaderMenu, FooterComponent],
+  imports: [FormsModule],
 })
 export class NovoMedicamentoComponent {
   protected readonly TIPO_MEDICAMENTO = TIPO_MEDICAMENTO;

@@ -15,22 +15,21 @@ import { NovaValidadeComponent } from '../nova-validade-component/nova-validade-
 })
 export class MedicamentoCardList {
   @Input() medicamentoLista?: MedicamentoViewDTO[] | void;
+  @Input() isAdmin: boolean = false;
 
+  @Output() deletarMedicamento = new EventEmitter();
 
-  formatarTexto(texto: string|null|undefined): string {
+  formatarTexto(texto: string | null | undefined): string {
     if (texto == null) {
       return '';
     }
 
-    if(texto == undefined){
+    if (texto == undefined) {
       return '';
     }
 
-
     return texto.toLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, (letra) => letra.toUpperCase());
   }
-
-
 
   idAtivo: number | null = null;
 
@@ -43,4 +42,9 @@ export class MedicamentoCardList {
   }
 
   protected readonly CLASSIFICAO_MEDICAMENTO = CLASSIFICAO_MEDICAMENTO;
+
+
+  deleteMedicamentoEvent(id: number) {
+    this.deletarMedicamento.emit(id);
+  }
 }

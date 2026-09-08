@@ -18,12 +18,13 @@ export class AuthService {
 
   login(dadosLogin:UsuarioLoginDTO){
 
-    this.httpClient.post(`${API_URL_AUTH}/login`,dadosLogin,{withCredentials:true}).subscribe({
+    this.httpClient.post(`${API_URL_AUTH}/login`,dadosLogin,{responseType: "text",withCredentials:true}).subscribe({
       next: (res) => {
+        console.log("Backend_OK:",res);
        this.obterUsuarioLogado();
      },
       error: err => {
-        console.log("credenciais invalidas: ",err);
+        console.log("Backend_Erro:",err.error);
         alert("Dados invalidos. Acesso negado.")
       }
     })
@@ -32,9 +33,10 @@ export class AuthService {
 
   obterUsuarioLogado(){
 
-    this.httpClient.get<UsuarioViewDTO>(`${API_URL_AUTH}/me`,{withCredentials:true}).subscribe({
+    this.httpClient.get<UsuarioViewDTO>(`${API_URL_AUTH}/me`,{withCredentials:true,responseType:"json"}).subscribe({
       next: (res:UsuarioViewDTO) => {
         this.usuarioLogado = res;
+
 
           if(this.usuarioLogado?.role === 'ADMIN'){
             this.router.navigate(['/admin/usuarios']);
@@ -43,6 +45,8 @@ export class AuthService {
           if(this.usuarioLogado?.role === 'USER'){
             this.router.navigate(['/validade']);
           }
+
+        console.log("obeterUssuarioLogado:",this.usuarioLogado);
         }
       })
 
@@ -57,13 +61,14 @@ export class AuthService {
 
   criarUsuario(novoUsuario:UsuarioCreateDTO):Observable<UsuarioViewDTO>{
 
-    return this.httpClient.post<UsuarioViewDTO>(`${API_URL_AUTH}`, novoUsuario,{
+    return this.httpClient.post<UsuarioViewDTO>(`${API_URL_AUTH}/cadastro`, novoUsuario,{
+      responseType: "json",
       withCredentials: true,
     });
   }
 
   deletarUsuario(id:number){
-    return this.httpClient.post<void>(`${API_URL_AUTH}/id`, {
+    return this.httpClient.delete<void>(`${API_URL_AUTH}/${id}`, {
       withCredentials: true,
     });
 }

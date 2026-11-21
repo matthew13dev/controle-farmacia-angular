@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Input, signal, SimpleChanges } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../api/auth-service';
 import { FormsModule } from '@angular/forms';
@@ -14,14 +14,16 @@ export class HeaderMenu {
   @Input() esconderLink: boolean = false;
 
   private serviceAuth = inject(AuthService);
-  usuarioLogado:string = "";
+  private cdr = inject(ChangeDetectorRef);
+  usuarioLogado = signal<string>('');
 
-  ngOnInit() {
-    this.serviceAuth.obterUsuarioLogado2().subscribe((logado) => {
+  ngOnInit(): void {
+    this.serviceAuth.obterUsuarioLogado2().subscribe((logado: UsuarioViewDTO) => {
       if (logado) {
-        this.usuarioLogado = logado.username;
-        console.log("ativo: " + this.usuarioLogado);
+        this.usuarioLogado.set(logado.username);
+        this.cdr.markForCheck(); // garante atualização mesmo com OnPush
       }
     });
+  }
   }
 }

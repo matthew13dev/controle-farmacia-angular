@@ -44,18 +44,13 @@ export class AuthService {
             this.router.navigate(['/validade']);
           }
 
-
           /////falha de segurança
-          localStorage.setItem('usuarioLogado', JSON.stringify(this.usuarioLogado));
+          localStorage.setItem('usuarioLogado', JSON.stringify(this.usuarioLogado.username));
 
 
           console.log('obeterUssuarioLogado:', this.usuarioLogado);
         },
       });
-  }
-
-  obterUsuarioLogado2(): Observable<UsuarioViewDTO> {
-    return this.httpClient.get<UsuarioViewDTO>(`${API_URL_AUTH}/me`, { withCredentials: true });
   }
 
   obterUsuarios(): Observable<UsuarioViewDTO[]> {

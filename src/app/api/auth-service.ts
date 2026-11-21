@@ -9,67 +9,71 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-
   private httpClient: HttpClient = inject(HttpClient);
   private router: Router = inject(Router);
 
-  private usuarioLogado?:UsuarioViewDTO;
+  private usuarioLogado?: UsuarioViewDTO;
 
-
-  login(dadosLogin:UsuarioLoginDTO){
-
-    this.httpClient.post(`${API_URL_AUTH}/login`,dadosLogin,{responseType: "text",withCredentials:true}).subscribe({
-      next: (res) => {
-        console.log("Backend_OK:",res);
-       this.obterUsuarioLogado();
-     },
-      error: err => {
-        console.log("Backend_Erro:",err.error);
-        alert("Dados invalidos. Acesso negado.")
-      }
-    })
-
+  login(dadosLogin: UsuarioLoginDTO) {
+    this.httpClient
+      .post(`${API_URL_AUTH}/login`, dadosLogin, { responseType: 'text', withCredentials: true })
+      .subscribe({
+        next: (res) => {
+          console.log('Backend_OK:', res);
+          this.obterUsuarioLogado();
+        },
+        error: (err) => {
+          console.log('Backend_Erro:', err.error);
+          alert('Dados invalidos. Acesso negado.');
+        },
+      });
   }
 
-  obterUsuarioLogado(){
+  obterUsuarioLogado(): void {
+    this.httpClient
+      .get<UsuarioViewDTO>(`${API_URL_AUTH}/me`, { withCredentials: true, responseType: 'json' })
+      .subscribe({
+        next: (res: UsuarioViewDTO) => {
+          this.usuarioLogado = res;
 
-    this.httpClient.get<UsuarioViewDTO>(`${API_URL_AUTH}/me`,{withCredentials:true,responseType:"json"}).subscribe({
-      next: (res:UsuarioViewDTO) => {
-        this.usuarioLogado = res;
-
-
-          if(this.usuarioLogado?.role === 'ADMIN'){
+          if (this.usuarioLogado?.role === 'ADMIN') {
             this.router.navigate(['/admin/usuarios']);
           }
 
-          if(this.usuarioLogado?.role === 'USER'){
+          if (this.usuarioLogado?.role === 'USER') {
             this.router.navigate(['/validade']);
           }
 
-        console.log("obeterUssuarioLogado:",this.usuarioLogado);
-        }
-      })
 
-    }
+          /////falha de segurança
+          localStorage.setItem('usuarioLogado', JSON.stringify(this.usuarioLogado));
 
-  obterUsuarios():Observable<UsuarioViewDTO[]>{
 
-    return this.httpClient.get<UsuarioViewDTO[]>(`${API_URL_AUTH}/usuarios`,{
-      withCredentials:true
-    });
+          console.log('obeterUssuarioLogado:', this.usuarioLogado);
+        },
+      });
   }
 
-  criarUsuario(novoUsuario:UsuarioCreateDTO):Observable<UsuarioViewDTO>{
+  obterUsuarioLogado2(): Observable<UsuarioViewDTO> {
+    return this.httpClient.get<UsuarioViewDTO>(`${API_URL_AUTH}/me`, { withCredentials: true });
+  }
 
-    return this.httpClient.post<UsuarioViewDTO>(`${API_URL_AUTH}/cadastro`, novoUsuario,{
-      responseType: "json",
+  obterUsuarios(): Observable<UsuarioViewDTO[]> {
+    return this.httpClient.get<UsuarioViewDTO[]>(`${API_URL_AUTH}/usuarios`, {
       withCredentials: true,
     });
   }
 
-  deletarUsuario(id:number){
+  criarUsuario(novoUsuario: UsuarioCreateDTO): Observable<UsuarioViewDTO> {
+    return this.httpClient.post<UsuarioViewDTO>(`${API_URL_AUTH}/cadastro`, novoUsuario, {
+      responseType: 'json',
+      withCredentials: true,
+    });
+  }
+
+  deletarUsuario(id: number) {
     return this.httpClient.delete<void>(`${API_URL_AUTH}/${id}`, {
       withCredentials: true,
     });
-}
+  }
 }

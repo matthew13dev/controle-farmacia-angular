@@ -20,6 +20,7 @@ export class HeaderMenu {
     this.serviceAuth.obterUsuarioLogado2().subscribe((logado) => {
       if (logado) {
         this.usuarioLogado = logado.username;
+        console.log("ativo: " + this.usuarioLogado);
       }
     });
   }

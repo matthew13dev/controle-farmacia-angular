@@ -47,7 +47,10 @@ export class AuthService {
           }
 
         console.log("obeterUssuarioLogado:",this.usuarioLogado);
-        }
+        },
+      error:err => {
+            console.log("erro ao obter ususario:",err.error);
+      }
       })
 
     }

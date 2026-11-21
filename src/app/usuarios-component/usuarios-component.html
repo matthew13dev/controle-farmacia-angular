@@ -42,7 +42,9 @@
       @for(usuario of listaUsuarios;track usuario){
         <div class="card-item">
           <p>{{usuario.username}}</p>
-          <p>{{usuario.role}}</p>
+          <p>role:{{usuario.role}}</p>
+          <p>id:{{usuario.id}}</p>
+          <p>registros:</p>
           <div class="box-btn">
             <button class="btn-delete" (click)="deletar(usuario?.id)">deletar</button>
           </div>

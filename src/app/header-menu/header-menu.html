@@ -3,6 +3,11 @@
     <nav>
 
       <a routerLink="/login" routerLinkActive="routerLinkActive">sair</a>
+
+      @if (usuarioLogado){
+        <span>Olá, {{usuarioLogado}}</span>
+      }
+
       @if (!esconderLink) {
         <div class="box">
           <a routerLink="/validade" routerLinkActive="routerLinkActive">Validade</a>

@@ -17,15 +17,10 @@ export class HeaderMenu {
   usuarioLogado:string = "";
 
   ngOnInit() {
-    const usuarioObj:UsuarioViewDTO = JSON.parse(<string>localStorage.getItem('usuarioLogado'));
-
-    if(usuarioObj){
-      this.usuarioLogado = usuarioObj.username;
-      console.log("ativo: " + this.usuarioLogado);
-    }
-    else {
-      console.log("nao logado");
-    }
-
+    this.serviceAuth.obterUsuarioLogado2().subscribe((logado) => {
+      if (logado) {
+        this.usuarioLogado = logado.username;
+      }
+    });
   }
 }
